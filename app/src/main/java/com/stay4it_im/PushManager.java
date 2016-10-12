@@ -1,7 +1,6 @@
 package com.stay4it_im;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.stay4it_im.entities.Message;
 
@@ -12,13 +11,14 @@ import com.stay4it_im.entities.Message;
 public class PushManager {
 
     private final Context context;
-    private PushManager mInstance;
+    private static PushManager mInstance;
 
-    public PushManager(Context context) {
+    private PushManager(Context context) {
+
         this.context=context;
     }
 
-    public PushManager getInstance(Context context)
+    public static PushManager getInstance(Context context)
     {
         if (mInstance==null)
         {
@@ -29,15 +29,21 @@ public class PushManager {
 
     public void handlePush(String content)
     {
-        Message message=new Message();
+        Message message=Message.test("0001","me","you");
+//        Message message=new Message();
         PushChanger.getInstance().notifyChanged(message);
     }
 
     public void sendMessage(Message msg)
     {
-        Intent service=new Intent(context,PushService.class);
-         service.putExtra(Constants.KEY_MESSAGE,msg);
-         context.startService(service);
+//         Intent service=new Intent(context,PushService.class);
+//         service.putExtra(Constants.KEY_MESSAGE,msg);
+//         context.startService(service);
+           msg.setStatus(Message.StatusType.ing);
+           PushChanger.getInstance().notifyChanged(msg);
+           msg.setStatus(Message.StatusType.done);
+          PushChanger.getInstance().notifyChanged(msg);
+
     }
 
     public void addObservers(PushWatcher watcher)

@@ -1,5 +1,7 @@
 package com.stay4it_im;
 
+import com.stay4it_im.entities.Message;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,6 +12,14 @@ import java.util.Observer;
 public class PushWatcher implements Observer {
     @Override
     public void update(Observable o, Object arg) {
+       if (arg instanceof Message)
+       {
+           messageUpdata((Message) arg);
+       }
+    }
+
+    public void messageUpdata(Message message)
+    {
 
     }
 }

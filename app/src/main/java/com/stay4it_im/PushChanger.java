@@ -21,6 +21,7 @@ public class PushChanger extends Observable {
     }
 
     public void notifyChanged(Message message) {
+        setChanged();
         notifyObservers(message);
     }
 }
