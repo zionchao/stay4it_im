@@ -1,9 +1,9 @@
 package com.stay4it_im;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.stay4it_im.entities.Message;
+import com.stay4it_im.util.Trace;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,8 @@ public class ChatTest{
     PushWatcher watcher1=new PushWatcher(){
         @Override
         public void messageUpdata(Message message) {
-            Log.e("lalala",message.getStatus()+"");
+            Trace.d(message.getStatus()+"");
+//            Log.e("lalala",message.getStatus()+"");
         }
     };
     PushWatcher watcher2=new PushWatcher();

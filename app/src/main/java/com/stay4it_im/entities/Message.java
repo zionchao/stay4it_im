@@ -1,34 +1,63 @@
 package com.stay4it_im.entities;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
 /**
  * Created by zhangchao_a on 2016/10/12.
  */
 
+@DatabaseTable(tableName = "message")
 public class Message implements Serializable {
 
-    private String _id;
+    public static final String TIMESTAMP="timestamp";
+    public static final String SENDERID="senderId";
+    public static final String RECEIVERID="receiverId";
+
+
+    public enum MessageType{
+        plain,audio,emo,image,location,txt
+    };
+
+    public enum StatusType {
+        ing, done, fail
+    };
+
+    @DatabaseField(id=true)
+    private String id;
+    @DatabaseField
     private String senderId;
+    @DatabaseField
     private String sender_name;
     private String sender_picture;
+    @DatabaseField
     private String receiverId;
     private String receiver_name;
     private String receiver_picture;
+    @DatabaseField
     private String content;
+    @DatabaseField
     private long timestamp;
+    @DatabaseField
     private boolean isRead;
     private int percent;
+    @DatabaseField
     private StatusType status;
+    @DatabaseField
     private MessageType content_type;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private Attachment attachment;
 
 
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getSenderId() {
@@ -135,18 +164,17 @@ public class Message implements Serializable {
         this.status = status;
     }
 
-    public enum MessageType{
-        plain,audio,emo,image,location,txt
-    };
+    public Attachment getAttachment() {
+        return attachment;
+    }
 
-    public enum StatusType {
-        ing, done, fail
-    };
-
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
+    }
 
     public static Message test(String id, String senderId, String receiverId) {
         Message message = new Message();
-        message.set_id(id);
+        message.setId(id);
         message.setContent("content:" + id);
         message.setStatus(StatusType.ing);
         message.setType(MessageType.txt);
@@ -154,5 +182,15 @@ public class Message implements Serializable {
         message.setSenderId(senderId);
         message.setReceiverId(receiverId);
         return message;
+    }
+
+    @Override
+    public String toString() {
+        return senderId + " send "+content+" to " + receiverId +" " + status;
+    }
+
+    public Conversation copyTo()
+    {
+        return null;
     }
 }

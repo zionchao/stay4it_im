@@ -27,6 +27,10 @@ public class PushManager {
         return mInstance;
     }
 
+    public void handlePush(Message message) {
+        PushChanger.getInstance().notifyChanged(message);
+    }
+
     public void handlePush(String content)
     {
         Message message=Message.test("0001","me","you");
@@ -60,4 +64,6 @@ public class PushManager {
     {
         PushChanger.getInstance().deleteObservers();
     }
+
+
 }
