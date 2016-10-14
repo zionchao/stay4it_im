@@ -5,40 +5,76 @@ package com.kevin.im.entities;
  */
 
 public class User {
-    private String id;
-    private String name;
-    private String nickname;
-    private String avatar;
-
-    public String getId() {
-        return id;
+    public enum GenderType {
+        male, female
     }
 
-    public void setId(String id) {
-        this.id = id;
+    private String _id;
+    private String account;
+    private GenderType gender;
+    private String birthday;
+    private String email;
+    private String tel;
+    private String picture;
+
+    public String get_id() {
+        return _id;
     }
 
-    public String getName() {
-        return name;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getAccount() {
+        return account;
     }
 
-    public String getNickname() {
-        return nickname;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public GenderType getGender() {
+        return gender;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public void setGender(GenderType gender) {
+        this.gender = gender;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    @Override
+    public String toString() {
+        return "account:" + account + ",tel:" + tel;
     }
 }

@@ -9,7 +9,7 @@ import android.widget.Toast;
  */
 
 public class Trace {
-    public static final String TAG = "stay4it";
+    public static final String TAG = "kevin";
     public static boolean DEBUG = true;
 
     public static void d(String msg) {

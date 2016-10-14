@@ -3,4 +3,78 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="white_light">#fff1f1f1</color>
+    <color name="black">#ff000000</color>
+    <color name="water_fall_text_bg">#fbf3e8</color>
+    <color name="water_fall_text">#94918d</color>
+    <color name="app_background">#fff2f1ed</color>
+    <color name="sns_bg_color">#fff8f8f8</color>
+    <color name="textcolor_66">#ff666666</color>
+    <color name="textcolor_80">#ff808080</color>
+    <color name="textcolor_b2">#ffb2b2b2</color>
+    <color name="divider_bg">#ffe5e5e5</color>
+    <color name="main_blue_selected">#ff37b8c1</color>
+    <color name="main_blue">#ff34ced9</color>
+    <color name="gray">#ff454545</color>
+    <color name="light_gray">#20454545</color>
+    <color name="main_purple">#ffaf92d7</color>
+    <color name="main_purple_selected">#ff9b7dc3</color>
+    <color name="red">#ffff0000</color>
+    <color name="conflict">#941100</color>
+    <color name="CambridgeBlue">#63B6E0</color>
+    <color name="pink">#ffFF0000</color>
+    <color name="blue">#ff2a64c8</color>
+    <color name="yellow">#ffffff00</color>
+    <color name="dark_yellow">#ffdd8400</color>
+    <color name="photo_gallery_bg">#4c000000</color>
+    <color name="photo_gallery_layout_bg">#80000000</color>
+    <color name="subhead_text">#ff848484</color>
+    <color name="item_time">#999999</color>
+    <color name="item_content">#595959</color>
+    <color name="item_bg">#f5f5f5</color>
+    <color name="write_bg">#fcf9e5</color>
+    <color name="link_text">#d5ac53</color>
+    <color name="fossa_son_bg">#f4f5f5</color>
+    <color name="smail_text">#999999</color>
+    <color name="smail_title_">#444444</color>
+    <color name="transparent">#00000000</color>
+    <color name="enable">#1d419d</color>
+    <color name="disable">#9b9b9b</color>
+    <color name="tabview_text_h">#cb7081</color>
+    <color name="tabview_text_n">#666666</color>
+    <color name="activity_bg">#342c39</color>
+    <color name="pointer_h">#b46674</color>
+    <color name="pointer_n">#504556</color>
+    <color name="list_selector">#342c39</color>
+
+    <drawable name="translucent_background">#90000000</drawable>
+    <drawable name="filter_background">#80000000</drawable>
+
+    <color name="msg_emotebar_backgroud">#ff333333</color>
+    <color name="msg_emotebar_item_press">#ffececec</color>
+    <color name="msg_emotebar_item_divider_color">#ff8d8d8d</color>
+    <color name="msg_editor_backgroud">#ffececec</color>
+    <color name="yellow_set">#b59f88</color>
+    <color name="skip_color">#98866e</color>
+    <color name="pull_refresh">#241d19</color>
+    <color name="mTitleColor">#98866e</color>
+    <color name="fossa_ripe_text">#b4b3b4</color>
+    <color name="theme_background">#ffecf3f9</color>
+    <color name="list_divider">#ffffffff</color>
+    <color name="detail_divider">#e5e5e5</color>
+    <color name="time">#b3b4b3</color>
+    <color name="comment">#b59f88</color>
+    <color name="yd_bg">#80000000</color>
+    <color name="top_title">#d52b1c</color>
+    <color name="top_left_right">#626262</color>
+    <color name="fossa_tab_text_enter">#626262</color>
+
+    <!-- 道具商城 -->
+    <color name="prop_line_color">#aa969696</color>
+
+    <!-- 个人中心 -->
+    <color name="person_center_color">#aa969696</color>
+
 </resources>

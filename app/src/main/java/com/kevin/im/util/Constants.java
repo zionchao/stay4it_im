@@ -6,4 +6,6 @@ package com.kevin.im.util;
 
 public class Constants {
     public static final String KEY_MESSAGE = "key_message";
+    public static final String KEY_ACCOUNT ="key_account" ;
+    public static final String KEY_PASSWORK ="key_passwork" ;
 }

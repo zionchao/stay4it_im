@@ -12,7 +12,7 @@ import com.kevin.im.entities.Message;
  * Created by zhangchao_a on 2016/10/12.
  */
 
-public class PushService extends Service {
+public class IMPushService extends Service {
 
     @Nullable
     @Override

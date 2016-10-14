@@ -2,7 +2,7 @@ package com.kevin.im;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.kevin.im.push.PushManager;
+import com.kevin.im.push.IMPushManager;
 import com.kevin.im.push.PushWatcher;
 import com.kevin.im.entities.Message;
 import com.kevin.im.util.Trace;
@@ -35,24 +35,24 @@ public class ChatTest{
 
     @Before
     public void setUp() throws Exception {
-        PushManager.getInstance(getContext()).addObservers(watcher1);
+        IMPushManager.getInstance(getContext()).addObservers(watcher1);
     }
 
     @Test
     public void testSendMsg() throws Exception
     {
         Message message=Message.test("0001",SELFID,TARGETID);
-        PushManager.getInstance(getContext()).sendMessage(message);
+        IMPushManager.getInstance(getContext()).sendMessage(message);
     }
 
     @Test
     public void testReceiveMsg() throws Exception
     {
-        PushManager.getInstance(getContext()).handlePush("");
+        IMPushManager.getInstance(getContext()).handlePush("");
     }
 
     @After
     public void tearDown() throws Exception {
-        PushManager.getInstance(getContext()).removeObservers(watcher1);
+        IMPushManager.getInstance(getContext()).removeObservers(watcher1);
     }
 }

@@ -3,6 +3,8 @@ package com.kevin.im.entities;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.kevin.im.IMApplication;
+import com.kevin.im.db.ConversationController;
 
 import java.io.Serializable;
 
@@ -27,15 +29,18 @@ public class Message implements Serializable {
     };
 
     @DatabaseField(id=true)
-    private String id;
+    private String _id;
     @DatabaseField
     private String senderId;
     @DatabaseField
     private String sender_name;
+    @DatabaseField
     private String sender_picture;
     @DatabaseField
     private String receiverId;
+    @DatabaseField
     private String receiver_name;
+    @DatabaseField
     private String receiver_picture;
     @DatabaseField
     private String content;
@@ -52,12 +57,12 @@ public class Message implements Serializable {
     private Attachment attachment;
 
 
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getSenderId() {
@@ -174,7 +179,7 @@ public class Message implements Serializable {
 
     public static Message test(String id, String senderId, String receiverId) {
         Message message = new Message();
-        message.setId(id);
+        message.set_id(id);
         message.setContent("content:" + id);
         message.setStatus(StatusType.ing);
         message.setType(MessageType.txt);
@@ -191,6 +196,25 @@ public class Message implements Serializable {
 
     public Conversation copyTo()
     {
-        return null;
+        Conversation conversation=new Conversation();
+        conversation.setContent(getContent());
+        conversation.setStatus(getStatus());
+        conversation.setTimestamp(getTimestamp());
+        conversation.setType(getType());
+        if (!getSenderId().equals(IMApplication.selfId)){
+            conversation.setTargetId(getSenderId());
+            conversation.setTargetName(getSender_name());
+            conversation.setTargetPicture(getSender_picture());
+            Conversation tmp= ConversationController.queryById(conversation.getTargetId());
+            conversation.setUnreadNum(tmp==null?1:tmp.getUnreadNum()+1);
+        }else
+        {
+            conversation.setTargetId(getReceiverId());
+            conversation.setTargetName(getReceiver_name());
+            conversation.setTargetPicture(getReceiver_picture());
+            Conversation tmp=ConversationController.queryById(conversation.getTargetId());
+            conversation.setUnreadNum(tmp==null?0:tmp.getUnreadNum());
+        }
+        return conversation;
     }
 }

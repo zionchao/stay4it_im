@@ -8,21 +8,21 @@ import com.kevin.im.entities.Message;
  * Created by zhangchao_a on 2016/10/12.
  */
 
-public class PushManager {
+public class IMPushManager {
 
     private final Context context;
-    private static PushManager mInstance;
+    private static IMPushManager mInstance;
 
-    private PushManager(Context context) {
+    private IMPushManager(Context context) {
 
         this.context=context;
     }
 
-    public static PushManager getInstance(Context context)
+    public static IMPushManager getInstance(Context context)
     {
         if (mInstance==null)
         {
-            mInstance=new PushManager(context);
+            mInstance=new IMPushManager(context);
         }
         return mInstance;
     }
@@ -40,7 +40,7 @@ public class PushManager {
 
     public void sendMessage(Message msg)
     {
-//         Intent service=new Intent(context,PushService.class);
+//         Intent service=new Intent(context,IMPushService.class);
 //         service.putExtra(Constants.KEY_MESSAGE,msg);
 //         context.startService(service);
            msg.setStatus(Message.StatusType.ing);

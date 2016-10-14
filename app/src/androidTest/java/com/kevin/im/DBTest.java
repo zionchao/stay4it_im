@@ -2,7 +2,7 @@ package com.kevin.im;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.kevin.im.push.PushManager;
+import com.kevin.im.push.IMPushManager;
 import com.kevin.im.push.PushWatcher;
 import com.kevin.im.db.ConversationController;
 import com.kevin.im.db.MessageController;
@@ -62,7 +62,7 @@ public class DBTest {
     @Before
     public void setUp()
     {
-//        PushManager.getInstance(getContext()).addObservers(watcher);
+//        IMPushManager.getInstance(getContext()).addObservers(watcher);
         IMApplication.gContext=getContext();
     }
 
@@ -79,9 +79,9 @@ public class DBTest {
         }
         //TODO new message
         Message message=Message.test("0001",TARGETID,SELFID);
-        PushManager.getInstance(getContext()).handlePush(message);
+        IMPushManager.getInstance(getContext()).handlePush(message);
         //TODO notify
-//        PushManager.getInstance(getContext()).handlePush("");
+//        IMPushManager.getInstance(getContext()).handlePush("");
     }
 
     @Test
@@ -89,13 +89,13 @@ public class DBTest {
     {
         updateConversation();
         Message message=Message.test("0001",TARGETID,SELFID);
-        PushManager.getInstance(getContext()).handlePush(message);
+        IMPushManager.getInstance(getContext()).handlePush(message);
     }
 
     @Test
     public void testBack()
     {
-        PushManager.getInstance(getContext()).addObservers(watcher);
+        IMPushManager.getInstance(getContext()).addObservers(watcher);
         ArrayList<Message> messages= MessageController.queryAllByTimeAsc(SELFID,TARGETID);
         if (messages!=null&&messages.size()>0)
         {
@@ -105,14 +105,14 @@ public class DBTest {
         }
         Message message=Message.test("0006",SELFID,TARGETID);
         message.setStatus(Message.StatusType.ing);
-        PushManager.getInstance(getContext()).handlePush(message);
-        PushManager.getInstance(getContext()).removeObservers(watcher);
+        IMPushManager.getInstance(getContext()).handlePush(message);
+        IMPushManager.getInstance(getContext()).removeObservers(watcher);
 
-        PushManager.getInstance(getContext()).addObservers(controller);
+        IMPushManager.getInstance(getContext()).addObservers(controller);
         updateConversation();
         message.setStatus(Message.StatusType.done);
-        PushManager.getInstance(getContext()).handlePush(message);
-        PushManager.getInstance(getContext()).removeObservers(controller);
+        IMPushManager.getInstance(getContext()).handlePush(message);
+        IMPushManager.getInstance(getContext()).removeObservers(controller);
 
 
     }
@@ -133,6 +133,6 @@ public class DBTest {
     @After
     public void tearDown()
     {
-        PushManager.getInstance(getContext()).removeObservers(watcher);
+        IMPushManager.getInstance(getContext()).removeObservers(watcher);
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">kevin_im</string>
+    <string name="mLoginSubmitLable">Login</string>
 </resources>

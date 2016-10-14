@@ -19,6 +19,10 @@ public class Conversation {
     @DatabaseField
     private String content;
     @DatabaseField
+    private String targetName;
+    @DatabaseField
+    private String targetPicture;
+    @DatabaseField
     private Message.MessageType type;
     @DatabaseField
     private int unreadNum;
@@ -83,8 +87,34 @@ public class Conversation {
         this.timestamp = timestamp;
     }
 
+    public String getTargetName() {
+        return targetName;
+    }
+
+    public void setTargetName(String targetName) {
+        this.targetName = targetName;
+    }
+
+    public String getTargetPicture() {
+        return targetPicture;
+    }
+
+    public void setTargetPicture(String targetPicture) {
+        this.targetPicture = targetPicture;
+    }
+
     @Override
     public String toString() {
         return targetId + " msg " + content +" unread "+ unreadNum + " status: " + status;
+    }
+
+    @Override
+    public int hashCode() {
+        return targetId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return hashCode()==obj.hashCode();
     }
 }
