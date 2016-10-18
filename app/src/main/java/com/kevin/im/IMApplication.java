@@ -20,8 +20,15 @@ public class IMApplication extends Application {
         gContext=this;
     }
 
-    public static Profile getProfile() {
-        return profile;
+//    public static Profile getProfile() {
+//        return profile;
+//    }
+
+    public static String getToken()
+    {
+        if (profile==null)
+            return null;
+        return profile.getAccess_token();
     }
 
     public static void setProfile(Profile pProfile) {

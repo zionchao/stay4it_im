@@ -2,6 +2,8 @@ package com.kevin.im.home;
 
 import android.widget.ListView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.kevin.http.AppException;
 import com.kevin.http.Request;
 import com.kevin.http.RequestManager;
@@ -24,6 +26,7 @@ public class ConversationActivity extends BaseActivity {
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_conversation);
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
     }
 
     @Override
@@ -43,8 +46,8 @@ public class ConversationActivity extends BaseActivity {
 
     private void loadDataFromServer() {
         Request request=new Request(UrlHelper.loadConversation());
-        request.addHeader("Content-type","application/json");
-        request.addHeader("Authorization", IMApplication.getProfile().getAccess_token());
+        request.addHeader("content-type","application/json");
+        request.addHeader("Authorization", IMApplication.getToken());
         request.setCallback(new StringCallback() {
             @Override
             public void onSuccess(String s) {
