@@ -2,6 +2,8 @@ package com.kevin.im.home;
 
 import android.widget.ListView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.kevin.http.AppException;
 import com.kevin.http.JsonCallback;
 import com.kevin.http.Request;
@@ -13,6 +15,9 @@ import com.kevin.im.adapter.ConversationAdapter;
 import com.kevin.im.db.ConversationController;
 import com.kevin.im.entities.Conversation;
 import com.kevin.im.entities.Message;
+import com.kevin.im.push.IMPushManager;
+import com.kevin.im.push.PushWatcher;
+import com.kevin.im.util.Trace;
 import com.kevin.im.util.UrlHelper;
 
 import java.util.ArrayList;
@@ -25,10 +30,31 @@ public class ConversationActivity extends BaseActivity {
     private ConversationAdapter mConversationAdapter;
     private ListView mConversationLsv;
     private ArrayList<Conversation> mConvsersationList;
+    private PushWatcher watcher=new PushWatcher(){
+        @Override
+        public void messageUpdata(Message message) {
+            Conversation conversation=message.copyTo();
+            mConvsersationList.remove(conversation);
+            mConvsersationList.add(conversation);
+            mConversationAdapter.setData(mConvsersationList);
+            mConversationAdapter.notifyDataSetChanged();
+        }
+    };
 
+    private ArrayList<String> tagList=new ArrayList<>();
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_conversation);
+//        PushSettings.enableDebugMode(this, true);
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"G5qSjxqYGExjhFQtKFPBauEM");
+//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
+        tagList.add("xxxxx");
+        tagList.add("yyyyy");
+        PushManager.setTags(this,tagList);
+//        PushManager.
+        boolean check= PushManager.isPushEnabled(this);
+        Trace.d(check+"");
+//        PushManager.stopWork(this);
     }
 
     @Override
@@ -42,6 +68,26 @@ public class ConversationActivity extends BaseActivity {
     public void initData() {
         loadDataFromDB();
         loadDataFromServer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IMPushManager.getInstance(getApplicationContext()).addObservers(watcher);
+//        PushManager.resumeWork(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        IMPushManager.getInstance(getApplicationContext()).removeObservers(watcher);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        PushManager.stopWork(this);
     }
 
     private void loadDataFromDB() {

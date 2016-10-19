@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
-//        tagList.add("111");
-//        tagList.add("222");
-        PushManager.setTags(this,tagList);
+        tagList.add("111");
+        tagList.add("222");
+//        PushManager.setTags(this,tagList);
+        PushManager.delTags(this,tagList);
 
     }
 }

@@ -38,7 +38,7 @@ public class PushReceiver extends PushMessageReceiver {
     }
 
     @Override
-    public void onSetTags(Context context, int i, List<String> list, List<String> list1, String s) {
+    public void onSetTags(Context context, int i, List<String> klist, List<String> list1, String s) {
 
     }
 
@@ -59,6 +59,7 @@ public class PushReceiver extends PushMessageReceiver {
         String messageString = "透传消息 onMessage=\"" + message
                 + "\" customContentString=" + customContentString;
         Log.d("lalala", messageString);
+//        IMPushManager.getInstance(context).handlePush(message);
 
         // 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
         if (!TextUtils.isEmpty(customContentString)) {

@@ -2,7 +2,6 @@ package com.kevin.im.db;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.kevin.im.IMApplication;
 import com.kevin.im.entities.Conversation;
 import com.kevin.im.entities.Message;
 
@@ -56,21 +55,21 @@ public class ConversationController {
     }
 
     public static void syncMessage(Message message){
-        Conversation conversation=new Conversation();
-        String targetId=message.getSenderId()== IMApplication.selfId?message.getReceiverId():message.getSenderId();
-        conversation.setTargetId(targetId);
-        conversation.setContent(message.getContent());
-        conversation.setStatus(message.getStatus());
-        conversation.setTimestamp(message.getTimestamp());
-        conversation.setType(message.getType());
-        Conversation tmp=queryById(targetId);
-        if (!message.getSenderId().equals(IMApplication.selfId)){
-            conversation.setUnreadNum(tmp==null?1:tmp.getUnreadNum()+1);
-        }else
-        {
-            conversation.setUnreadNum(tmp==null?0:tmp.getUnreadNum());
-        }
-        addOrUpdate(conversation);
+//        Conversation conversation=new Conversation();
+//        String targetId=message.getSenderId()== IMApplication.selfId?message.getReceiverId():message.getSenderId();
+//        conversation.setTargetId(targetId);
+//        conversation.setContent(message.getContent());
+//        conversation.setStatus(message.getStatus());
+//        conversation.setTimestamp(message.getTimestamp());
+//        conversation.setType(message.getType());
+//        Conversation tmp=queryById(targetId);
+//        if (!message.getSenderId().equals(IMApplication.selfId)){
+//            conversation.setUnreadNum(tmp==null?1:tmp.getUnreadNum()+1);
+//        }else
+//        {
+//            conversation.setUnreadNum(tmp==null?0:tmp.getUnreadNum());
+//        }
+        addOrUpdate(message.copyTo());
     }
 
     public static void markAsRead(String targetId)

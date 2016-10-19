@@ -18,6 +18,8 @@ public class IMApplication extends Application {
     public void onCreate() {
         super.onCreate();
         gContext=this;
+//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
+
     }
 
     public static Profile getProfile() {

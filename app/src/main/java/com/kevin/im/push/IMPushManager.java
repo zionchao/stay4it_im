@@ -2,6 +2,7 @@ package com.kevin.im.push;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.kevin.im.entities.Message;
 
 /**
@@ -12,6 +13,7 @@ public class IMPushManager {
 
     private final Context context;
     private static IMPushManager mInstance;
+    private Gson gson=new Gson();
 
     private IMPushManager(Context context) {
 
@@ -33,8 +35,9 @@ public class IMPushManager {
 
     public void handlePush(String content)
     {
-        Message message=Message.test("0001","me","you");
+//        Message message=Message.test("0001","me","you");
 //        Message message=new Message();
+        Message message=gson.fromJson(content,Message.class);
         PushChanger.getInstance().notifyChanged(message);
     }
 
