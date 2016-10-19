@@ -28,6 +28,19 @@ public class MessageController {
         }
     }
 
+    public static void addOrUpdate(ArrayList<Message> messages) {
+        try {
+            if (messages != null && messages.size() > 0) {
+                for (Message message : messages) {
+                    getDao().createOrUpdate(message);
+                }
+//				ConversationController.syncMessage(t.get(t.size() - 1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void delete(Message message)
     {
         try {
@@ -52,4 +65,6 @@ public class MessageController {
         }
         return messages;
     }
+
+
 }

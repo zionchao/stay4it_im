@@ -47,7 +47,7 @@ public class PushReceiver extends XGPushBaseReceiver {
     public void onTextMessage(Context context, XGPushTextMessage message) {
         // TODO Auto-generated method stub
         String text = "收到消息:" + message.toString();
-        IMPushManager.getInstance(context).handlePush(message.toString());
+        IMPushManager.getInstance(context).handlePush(message.getContent());
         // 获取自定义key-value
         String customContent = message.getCustomContent();
         if (customContent != null && customContent.length() != 0) {
@@ -73,7 +73,7 @@ public class PushReceiver extends XGPushBaseReceiver {
 
     }
 
-    private String LogTag="LogTag";
+    private String LogTag="kevin";
     @Override
     public void onNotifactionShowedResult(Context context, XGPushShowedResult message) {
 

@@ -48,7 +48,7 @@
         android:name=".IMApplication"
         >
 
-        <activity android:name=".home.MainActivity">
+        <activity android:name=".home.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -58,7 +58,9 @@
 
         <activity android:name=".home.ConversationActivity"/>
 
-        <activity android:name=".home.LoginActivity"/>
+        <activity android:name=".home.ChatActivity"/>
+
+        <activity android:name=".home.MainActivity"/>
 
 
         <!-- 【必须】 信鸽receiver广播接收 -->

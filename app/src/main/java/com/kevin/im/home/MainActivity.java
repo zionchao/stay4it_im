@@ -1,17 +1,12 @@
 package com.kevin.im.home;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.kevin.im.R;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
-import com.tencent.android.tpush.service.XGPushService;
 
 import java.util.ArrayList;
 
@@ -47,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
 //        Intent service = new Intent(context, XGPushService.class);
 //        context.startService(service);
 
->>>>>>> 9bd514d941f19a864c9654d40464a3834784e76d
+
+
 
     }
 }
