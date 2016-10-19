@@ -5,9 +5,9 @@ import android.widget.ListView;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.kevin.http.AppException;
-import com.kevin.http.JsonCallback;
 import com.kevin.http.Request;
 import com.kevin.http.RequestManager;
+import com.kevin.http.StringCallback;
 import com.kevin.im.BaseActivity;
 import com.kevin.im.IMApplication;
 import com.kevin.im.R;
@@ -17,10 +17,9 @@ import com.kevin.im.entities.Conversation;
 import com.kevin.im.entities.Message;
 import com.kevin.im.push.IMPushManager;
 import com.kevin.im.push.PushWatcher;
+
 import com.kevin.im.util.Trace;
 import com.kevin.im.util.UrlHelper;
-
-import java.util.ArrayList;
 
 /**
  * Created by zhangchao_a on 2016/10/14.
@@ -41,27 +40,17 @@ public class ConversationActivity extends BaseActivity {
         }
     };
 
+
     private ArrayList<String> tagList=new ArrayList<>();
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_conversation);
-//        PushSettings.enableDebugMode(this, true);
-        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"G5qSjxqYGExjhFQtKFPBauEM");
-//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
-        tagList.add("xxxxx");
-        tagList.add("yyyyy");
-        PushManager.setTags(this,tagList);
-//        PushManager.
-        boolean check= PushManager.isPushEnabled(this);
-        Trace.d(check+"");
-//        PushManager.stopWork(this);
+
     }
 
     @Override
     public void initView() {
         mConversationLsv=(ListView)findViewById(R.id.mConversationLsv);
-        mConversationAdapter=new ConversationAdapter(this,mConvsersationList);
-        mConversationLsv.setAdapter(mConversationAdapter);
     }
 
     @Override
@@ -91,34 +80,24 @@ public class ConversationActivity extends BaseActivity {
     }
 
     private void loadDataFromDB() {
-        mConvsersationList=ConversationController.queryAllByTimeDesc();
-        mConversationAdapter.setData(mConvsersationList);
-        mConversationAdapter.notifyDataSetChanged();
+
     }
 
     private void loadDataFromServer() {
         Request request=new Request(UrlHelper.loadConversation());
-        request.addHeader("Content-type","application/json");
-        request.addHeader("Authorization", IMApplication.getProfile().getAccess_token());
-        request.setCallback(new JsonCallback<ArrayList<Message>>() {
+        request.addHeader("content-type","application/json");
+        request.addHeader("Authorization", IMApplication.getToken());
+        request.setCallback(new StringCallback() {
             @Override
-            public void onSuccess(ArrayList<Message> result) {
-                for (Message message:result) {
-                    ConversationController.syncMessage(message);
-//                    Trace.d(message.toString());
-                }
-                notifyDataChanged();
+            public void onSuccess(String s) {
+                Trace.d(s);
             }
 
             @Override
-            public void onFailuer(AppException error) {
-                error.printStackTrace();
+            public void onFailuer(AppException e) {
+                e.printStackTrace();
             }
         });
         RequestManager.getInstance().performRequest(request);
-    }
-
-    private void notifyDataChanged() {
-        loadDataFromDB();
     }
 }
