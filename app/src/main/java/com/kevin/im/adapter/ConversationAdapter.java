@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.kevin.im.R;
 import com.kevin.im.entities.Conversation;
+import com.kevin.im.home.ConversationActivity;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class ConversationAdapter extends BaseAdapter {
 
-    private ArrayList<Conversation> mConversationList;
+    private final ArrayList<Conversation> mConversationList;
     private final Context context;
     private ViewHolder mViewHolder;
 
@@ -30,17 +31,17 @@ public class ConversationAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return mConversationList==null?0:mConversationList.size();
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return mConversationList.get(position);
+        return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
@@ -72,10 +73,4 @@ public class ConversationAdapter extends BaseAdapter {
         TextView mConversationNumTip;
         ImageView mConversationAvatarImg;
     }
-
-    public void setData(ArrayList<Conversation> conversationList)
-    {
-        mConversationList=conversationList;
-    }
-
 }
