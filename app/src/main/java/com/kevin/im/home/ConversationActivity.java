@@ -112,13 +112,23 @@ public class ConversationActivity extends BaseActivity implements AdapterView.On
         request.addHeader("Content-type","application/json");
         request.addHeader("Authorization", IMApplication.getToken());
         request.setCallback(new JsonCallback<ArrayList<Message>>() {
+
             @Override
-            public void onSuccess(ArrayList<Message> result) {
-                for (Message message:result) {
+            public ArrayList<Message> onPostRequest(ArrayList<Message> messages) {
+                for (Message message:messages) {
                     ConversationController.syncMessage(message);
 //                    Trace.d(message.toString());
                 }
-                notifyDataChanged();
+                return messages;
+            }
+
+            @Override
+            public void onSuccess(ArrayList<Message> messages) {
+                if (messages!=null&&messages.size()>0)
+                {
+                    notifyDataChanged();
+                }
+
             }
 
             @Override

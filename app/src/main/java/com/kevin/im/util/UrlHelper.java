@@ -29,7 +29,10 @@ public class UrlHelper {
         return getDomain() + ACTION_GET_CONVERSATION;
     }
 
-    public static String loadAllMsg(String id, long timestamp) {
+    public static String loadAllMsg(String id, int state, long timestamp) {
+        if (state == Constants.REFRESH && timestamp != 0l) {
+            return getDomain() + ACTION_GET_MESSAGE + "/" + id + "?endTimestamp=" + timestamp + "&count=" + Integer.MAX_VALUE;
+        }
         return getDomain() + ACTION_GET_MESSAGE + "/" + id + "?timestamp=" + timestamp + "&count=30";
     }
 

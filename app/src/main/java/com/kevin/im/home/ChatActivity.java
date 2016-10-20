@@ -23,6 +23,9 @@ import com.tencent.android.tpush.XGPushManager;
 import java.util.ArrayList;
 
 import static com.kevin.im.IMApplication.selfId;
+import static com.kevin.im.db.MessageController.queryAllByTimeAsc;
+import static com.kevin.im.util.Constants.LOADMORE;
+import static com.kevin.im.util.Constants.REFRESH;
 
 /**
  * Created by zhangchao_a on 2016/10/14.
@@ -35,8 +38,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     private Button mChatLoadMoreBtn;
     private String targetId;
     private String targetName;
-    private static final int REFRESH=0;
-    private static final int LOADMORE=1;
+
 
     private PushWatcher watcher=new PushWatcher(){
         @Override
@@ -49,6 +51,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 //            mChatAdapter.notifyDataSetChanged();
         }
     };
+    private long endTimeStamp=0;
+
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_chat);
@@ -70,8 +74,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
         targetId=getIntent().getStringExtra(Constants.KEY_TARGETID);
         targetName=getIntent().getStringExtra(Constants.KEY_TARGETNAME);
         selfId=IMApplication.selfId;
-//        loadDataFromDB();
-        loadDataFromServer(REFRESH);
+        loadDataFromDB();
+        loadDataFromServer(REFRESH,endTimeStamp);
     }
 
     @Override
@@ -85,22 +89,25 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         IMPushManager.getInstance(getApplicationContext()).addObservers(watcher);
+        MessageController.markAsRead(targetId,selfId);
 
     }
 
     private void loadDataFromDB() {
-         mChatList= MessageController.queryAllByTimeAsc(targetId,selfId);
+         mChatList= queryAllByTimeAsc(targetId,selfId,0);
          mChatAdapter.setData(mChatList);
          mChatAdapter.notifyDataSetChanged();
+        if (mChatList!=null&&mChatList.size()>0)
+        {
+            if (endTimeStamp==0)
+                endTimeStamp=MessageController.queryEndTimeStamp(targetId,selfId);
+        }
     }
 
-    private void loadDataFromServer(final int status) {
-        long timestamp=0;
-        if (status==LOADMORE&&mChatList!=null&&mChatList.size()>0)
-        {
-            timestamp=mChatList.get(0).getTimestamp();
-        }
-        Request request=new Request(UrlHelper.loadAllMsg(targetId,timestamp));
+    private void loadDataFromServer(final int status, final long timestamp) {
+//        long timestamp=0;
+
+        Request request=new Request(UrlHelper.loadAllMsg(targetId,status,timestamp));
         request.addHeader("Content-type","application/json");
         request.addHeader("Authorization", IMApplication.getToken());
         request.setCallback(new JsonCallback<ArrayList<Message>>() {
@@ -109,16 +116,32 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
             public ArrayList<Message> onPreRequest() {
                 if (status==LOADMORE)
                 {
-
+                    ArrayList<Message> tmp=MessageController.queryAllByTimeAsc(targetId,selfId,timestamp);
+                    if (tmp!=null&&tmp.size()>0){
+                        return tmp;
+                    }
                 }
-                mChatList=MessageController.queryAllByTimeAsc(targetId,selfId);
+//                mChatList= queryAllByTimeAsc(targetId,selfId,0);
                 return super.onPreRequest();
             }
 
             @Override
+            public void refreshUI(ArrayList<Message> messages) {
+                mChatList=messages;
+                mChatAdapter.setData(mChatList);
+                mChatAdapter.notifyDataSetChanged();
+            }
+
+//            @Override
+//            public void refreshUI() {
+////                super.refreshUI();
+//                loadDataFromDB();
+//            }
+
+            @Override
             public ArrayList<Message> onPostRequest(ArrayList<Message> messages) {
                 MessageController.addOrUpdate(messages);
-                return messages;
+                return MessageController.queryAllByTimeAsc(targetId,selfId,0);
             }
 
             @Override
@@ -129,9 +152,15 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
                         mChatList=new ArrayList<Message>();
                     if (status==LOADMORE)
                         mChatList.addAll(0,messages);
-                    else
+                    else{
+                        mChatList.clear();
                         mChatList.addAll(messages);
+                    }
                     notifyDataChanged();
+                }else
+                {
+                    if (status==Constants.LOADMORE)
+                        mChatLoadMoreBtn.setEnabled(false);
                 }
 //                loadDataFromDB();
             }
@@ -159,7 +188,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
         switch(v.getId())
         {
             case R.id.mChatLoadMoreBtn:
-                loadDataFromServer(LOADMORE);
+                long timestamp=0;
+                if (mChatList!=null&&mChatList.size()>0)
+                {
+                    timestamp=mChatList.get(0).getTimestamp();
+                }
+                loadDataFromServer(LOADMORE,timestamp);
                 break;
         }
     }

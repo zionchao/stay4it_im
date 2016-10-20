@@ -7,6 +7,7 @@ import com.kevin.im.entities.Message;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangchao_a on 2016/10/13.
@@ -50,7 +51,7 @@ public class MessageController {
         }
     }
 
-    public static ArrayList<Message> queryAllByTimeAsc(String id1,String id2){
+    public static ArrayList<Message> queryAllByTimeAsc(String id1,String id2,long timestamp){
         ArrayList<Message> messages=new ArrayList<Message>();
         try {
             QueryBuilder<Message,String>queryBuilder=getDao().queryBuilder ();
@@ -59,6 +60,12 @@ public class MessageController {
             where.in(Message.SENDERID,id1,id2);
             where.and();
             where.in(Message.RECEIVERID,id1,id2);
+            if (timestamp!=0)
+            {
+                where.and();
+                where.lt(Message.TIMESTAMP,timestamp);
+            }
+            queryBuilder.limit(30l);
             messages= (ArrayList<Message>) getDao().query(queryBuilder.prepare());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,5 +73,40 @@ public class MessageController {
         return messages;
     }
 
+    public static Message queryById(String id){
+        try {
+            return getDao().queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+
+    public static void markAsRead(String targetId, String selfId) {
+        try {
+            getDao().executeRaw("UPDATE message SET "+Message.ISREAD +
+                    " =true WHRER "+Message.SENDERID+"=? and "+Message.RECEIVERID+"=? order by timestamp desc limit 1",targetId,selfId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static long queryEndTimeStamp(String targetId, String selfId) {
+        try {
+            QueryBuilder<Message,String> queryBuilder=getDao().queryBuilder();
+            queryBuilder.orderBy(Message.TIMESTAMP,true);
+            Where<Message,String> where=queryBuilder.where();
+            where.eq(Message.RECEIVERID,selfId);
+            where.and();
+            where.eq(Message.SENDERID,targetId);
+            queryBuilder.limit(1l);
+            List<Message> msg=getDao().query(queryBuilder.prepare());
+            if (msg!=null&&msg.size()>0)
+                return msg.get(0).getTimestamp();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

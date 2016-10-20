@@ -49,9 +49,10 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Message message = mChatList.get(position);
+
         if (selfId.equalsIgnoreCase(message.getSenderId())) {
             // out
-            if (message.getType() == Message.MessageType.txt) {
+            if (message.getType()==null||message.getType() == Message.MessageType.txt) {
                 convertView = createTextOutMsg(position, message);
             } else {
 //					convertView = createMediaOutMsg(position, message);

@@ -18,6 +18,7 @@ public class Message implements Serializable {
     public static final String TIMESTAMP="timestamp";
     public static final String SENDERID="senderId";
     public static final String RECEIVERID="receiverId";
+    public static final String ISREAD ="isRead" ;
 
 
     public enum MessageType{
@@ -44,7 +45,7 @@ public class Message implements Serializable {
     private String receiver_picture;
     @DatabaseField
     private String content;
-    @DatabaseField
+    @DatabaseField(unique = true)
     private long timestamp;
     @DatabaseField
     private boolean isRead;
