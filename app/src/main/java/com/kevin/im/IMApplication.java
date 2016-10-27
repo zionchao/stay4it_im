@@ -37,4 +37,8 @@ public class IMApplication extends Application {
         profile = pProfile;
         selfId=pProfile.getUserId();
     }
+
+    public static Profile getProfile() {
+        return profile;
+    }
 }

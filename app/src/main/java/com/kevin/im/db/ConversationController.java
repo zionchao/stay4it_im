@@ -75,7 +75,7 @@ public class ConversationController {
     public static void markAsRead(String targetId)
     {
         try {
-            getDao().executeRaw("UPDATE conversation SET "+Conversation.UNREADNUM+"=0  WHERE "+Conversation.TARGETID+"=?",targetId);
+            getDao().updateRaw("UPDATE conversation SET "+Conversation.UNREADNUM+"=0  WHERE "+Conversation.TARGETID+"=?",targetId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -85,8 +85,9 @@ public class MessageController {
 
     public static void markAsRead(String targetId, String selfId) {
         try {
-            getDao().executeRaw("UPDATE message SET "+Message.ISREAD +
-                    " =true WHRER "+Message.SENDERID+"=? and "+Message.RECEIVERID+"=? order by timestamp desc limit 1",targetId,selfId);
+            getDao().updateRaw("UPDATE message SET "+Message.ISREAD +
+                    "=? WHRER "+Message.SENDERID+"=? and "+Message.RECEIVERID+"=? order by timestamp desc limit 1","1",targetId,selfId);
+            ConversationController.markAsRead(targetId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

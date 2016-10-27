@@ -13,4 +13,7 @@ public class Constants {
 
     public static final int REFRESH=0;
     public static final int LOADMORE=1;
+
+    public static final long PAGECOUNT = 30;
+
 }

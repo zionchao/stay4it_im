@@ -37,11 +37,22 @@ public class ConversationActivity extends BaseActivity implements AdapterView.On
 
     private PushWatcher watcher=new PushWatcher(){
         @Override
-        public void messageUpdata(Message message) {
-//            super.messageUpdata(message);
+        public void onMessageReceived(Message message) {
             Conversation conversation = message.copyTo();
             mConversationList.remove(conversation);
             mConversationList.add(0,conversation);
+            mConversationAdapter.setData(mConversationList);
+            mConversationAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onMessageUpdated(Message oldMessage, Message newMessage) {
+            Conversation conversation=oldMessage.copyTo();
+            mConversationList.remove(conversation);
+            if (newMessage!=null)
+                mConversationList.add(0,newMessage.copyTo());
+            else
+                mConversationList.add(conversation);
             mConversationAdapter.setData(mConversationList);
             mConversationAdapter.notifyDataSetChanged();
         }

@@ -70,7 +70,7 @@ public class DBTest {
     public void testChat() throws Exception
     {
         // TODO query
-        ArrayList<Message> messages= MessageController.queryAllByTimeAsc(SELFID,TARGETID);
+        ArrayList<Message> messages= MessageController.queryAllByTimeAsc(SELFID,TARGETID,0);
         if (messages!=null&&messages.size()>0)
         {
             for (Message message : messages) {
@@ -96,7 +96,7 @@ public class DBTest {
     public void testBack()
     {
         IMPushManager.getInstance(getContext()).addObservers(watcher);
-        ArrayList<Message> messages= MessageController.queryAllByTimeAsc(SELFID,TARGETID);
+        ArrayList<Message> messages= MessageController.queryAllByTimeAsc(SELFID,TARGETID,0);
         if (messages!=null&&messages.size()>0)
         {
             for (Message message : messages) {

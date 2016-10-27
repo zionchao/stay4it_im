@@ -2,6 +2,7 @@ package com.kevin.im.home;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.kevin.http.AppException;
@@ -17,6 +18,7 @@ import com.kevin.im.entities.Message;
 import com.kevin.im.push.IMPushManager;
 import com.kevin.im.push.PushWatcher;
 import com.kevin.im.util.Constants;
+import com.kevin.im.util.IDHelper;
 import com.kevin.im.util.UrlHelper;
 import com.tencent.android.tpush.XGPushManager;
 
@@ -41,7 +43,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
 
     private PushWatcher watcher=new PushWatcher(){
-        @Override
         public void messageUpdata(Message message) {
 //            super.messageUpdata(message);
 //            Conversation conversation = message.copyTo();
@@ -50,8 +51,49 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 //            mChatAdapter.setData(mChatList);
 //            mChatAdapter.notifyDataSetChanged();
         }
+
+        @Override
+        public void onMessageReceived(Message message) {
+            if (!message.getSenderId().equals(targetId))
+            {
+                return;
+            }
+            if (mChatList==null)
+                mChatList=new ArrayList<>();
+            mChatList.add(message);
+            mChatAdapter.setData(mChatList);
+            mChatAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onMessageUpdated(Message oldMessage, Message newMessage) {
+            if (!oldMessage.getReceiverId().equals(targetId))
+                return;
+            if (mChatList==null)
+                mChatList=new ArrayList<>();
+            int index=mChatList.indexOf(oldMessage);
+            if (index==-1)
+                mChatList.add(oldMessage);
+            else{
+                if (newMessage!=null)
+                {
+                    mChatList.remove(index);
+                    mChatList.add(index,newMessage);
+                }else
+                {
+                    mChatList.remove(index);
+                    mChatList.add(index,oldMessage);
+                }
+            }
+            mChatAdapter.setData(mChatList);
+            mChatAdapter.notifyDataSetChanged();
+        }
     };
+
     private long endTimeStamp=0;
+    private EditText mChatEdt;
+    private Button mChatSendBtn;
+    private String selfName;
 
     @Override
     public void setContentView() {
@@ -63,6 +105,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initView() {
         mChatLsv=(ListView)findViewById(R.id.mChatLsv);
+        mChatEdt= (EditText) findViewById(R.id.mChatEdt);
+        mChatSendBtn= (Button) findViewById(R.id.mChatSendBtn);
+        mChatSendBtn.setOnClickListener(this);
+
         mChatAdapter=new ChatAdapter(this,mChatList);
         mChatLsv.setAdapter( mChatAdapter);
         mChatLoadMoreBtn=(Button)findViewById(R.id.mChatLoadMoreBtn);
@@ -73,6 +119,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     public void initData() {
         targetId=getIntent().getStringExtra(Constants.KEY_TARGETID);
         targetName=getIntent().getStringExtra(Constants.KEY_TARGETNAME);
+        selfName=IMApplication.getProfile().getName();
         selfId=IMApplication.selfId;
         loadDataFromDB();
         loadDataFromServer(REFRESH,endTimeStamp);
@@ -195,6 +242,25 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
                 }
                 loadDataFromServer(LOADMORE,timestamp);
                 break;
+            case R.id.mChatSendBtn:
+                if (mChatEdt.getText().toString()!=null)
+                {
+                    composeMessage(mChatEdt.getText().toString());
+                }
+                break;
         }
+    }
+
+    private void composeMessage(String content) {
+        Message message=new Message();
+        message.set_id(IDHelper.generateNew());
+        message.setContent(content);
+        message.setReceiver_name(targetName);
+        message.setReceiverId(targetId);
+        message.setSender_name(selfName);
+        message.setSenderId(selfId);
+        message.setContent_type(Message.MessageType.txt);
+        message.setTimestamp(System.currentTimeMillis());
+        IMPushManager.getInstance(this).sendMessage(message);
     }
 }

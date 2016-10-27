@@ -11,15 +11,21 @@ import java.util.Observer;
 
 public class PushWatcher implements Observer {
     @Override
-    public void update(Observable o, Object arg) {
-       if (arg instanceof Message)
+    public void update(Observable observable, Object data) {
+       if (data instanceof Message)
        {
-           messageUpdata((Message) arg);
+           onMessageReceived((Message)data);
+       }else if (data instanceof Message[])
+       {
+           onMessageUpdated(((Message[])data)[0],((Message[])data)[1]);
        }
     }
 
-    public void messageUpdata(Message message)
-    {
 
+
+    public void onMessageReceived(Message message) {
+    }
+
+    public void onMessageUpdated(Message oldMessage, Message newMessage) {
     }
 }

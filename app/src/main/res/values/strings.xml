@@ -2,4 +2,5 @@
     <string name="app_name">kevin_im</string>
     <string name="mLoginSubmitLable">Login</string>
     <string name="mChatLoadMoreLabel">Load More</string>
+    <string name="mChatSendBtnLable">Send</string>
 </resources>
