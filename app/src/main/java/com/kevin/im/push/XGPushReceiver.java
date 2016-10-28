@@ -16,9 +16,9 @@ import org.json.JSONObject;
  * Created by zhangchao_a on 2016/10/13.
  */
 
-public class PushReceiver extends XGPushBaseReceiver {
+public class XGPushReceiver extends XGPushBaseReceiver {
 
-    public PushReceiver() {
+    public XGPushReceiver() {
         super();
     }
 
