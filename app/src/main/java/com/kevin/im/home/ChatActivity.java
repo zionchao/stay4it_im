@@ -99,7 +99,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     public void setContentView() {
         setContentView(R.layout.activity_chat);
 //        XGPushManager.registerPush(getApplicationContext());
-
     }
 
     @Override
@@ -146,6 +145,13 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
          mChatAdapter.notifyDataSetChanged();
         if (mChatList!=null&&mChatList.size()>0)
         {
+            // TODO 如果30条数据都是对方发送
+            for(int i=mChatList.size()-1;i>=0;i--)
+            {
+                if (mChatList.get(i).isRead())
+                    endTimeStamp=mChatList.get(i).getTimestamp();
+            }
+            //TODO 如果都是自己发送
             if (endTimeStamp==0)
                 endTimeStamp=MessageController.queryEndTimeStamp(targetId,selfId);
         }
@@ -174,9 +180,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void refreshUI(ArrayList<Message> messages) {
-                mChatList=messages;
-                mChatAdapter.setData(mChatList);
-                mChatAdapter.notifyDataSetChanged();
+                if(messages!=null)
+                {
+                    mChatList=messages;
+                    mChatAdapter.setData(mChatList);
+                    mChatAdapter.notifyDataSetChanged();
+                }
             }
 
 //            @Override

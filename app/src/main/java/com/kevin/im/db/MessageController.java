@@ -96,7 +96,7 @@ public class MessageController {
     public static long queryEndTimeStamp(String targetId, String selfId) {
         try {
             QueryBuilder<Message,String> queryBuilder=getDao().queryBuilder();
-            queryBuilder.orderBy(Message.TIMESTAMP,true);
+            queryBuilder.orderBy(Message.TIMESTAMP,false);
             Where<Message,String> where=queryBuilder.where();
             where.eq(Message.RECEIVERID,selfId);
             where.and();

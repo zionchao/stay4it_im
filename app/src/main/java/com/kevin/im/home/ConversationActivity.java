@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.kevin.http.AppException;
 import com.kevin.http.JsonCallback;
 import com.kevin.http.Request;
@@ -82,6 +84,8 @@ public class ConversationActivity extends BaseActivity implements AdapterView.On
 
                     }
                 });
+
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"G5qSjxqYGExjhFQtKFPBauEM");
     }
 
     @Override
@@ -135,11 +139,9 @@ public class ConversationActivity extends BaseActivity implements AdapterView.On
 
             @Override
             public void onSuccess(ArrayList<Message> messages) {
-                if (messages!=null&&messages.size()>0)
-                {
+                if (messages!=null&&messages.size()>0) {
                     notifyDataChanged();
                 }
-
             }
 
             @Override

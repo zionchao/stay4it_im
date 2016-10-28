@@ -1,7 +1,7 @@
 package com.kevin.im.home;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.kevin.im.R;
@@ -10,7 +10,7 @@ import com.tencent.android.tpush.XGPushManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private ArrayList<String> tagList=new ArrayList<>();
 
     @Override
