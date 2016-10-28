@@ -1,9 +1,11 @@
 package com.kevin.im.push;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.kevin.im.entities.Message;
+import com.kevin.im.util.Constants;
 
 /**
  * Created by zhangchao_a on 2016/10/12.
@@ -33,6 +35,10 @@ public class IMPushManager {
         PushChanger.getInstance().notifyChanged(message);
     }
 
+    public void messageUpdate(Message oldMessage, Message newMessage) {
+        PushChanger.getInstance().notifyChanged(oldMessage,newMessage);
+    }
+
     public void handlePush(String content)
     {
 //        Message message=Message.test("0001","me","you");
@@ -43,13 +49,16 @@ public class IMPushManager {
 
     public void sendMessage(Message msg)
     {
-//         Intent service=new Intent(context,IMPushService.class);
-//         service.putExtra(Constants.KEY_MESSAGE,msg);
-//         context.startService(service);
-           msg.setStatus(Message.StatusType.ing);
-           PushChanger.getInstance().notifyChanged(msg);
-           msg.setStatus(Message.StatusType.done);
-          PushChanger.getInstance().notifyChanged(msg);
+         msg.setStatus(Message.StatusType.ing);
+        PushChanger.getInstance().notifyChanged(msg);
+
+         Intent service=new Intent(context,IMPushService.class);
+         service.putExtra(Constants.KEY_MESSAGE,msg);
+         context.startService(service);
+//           msg.setStatus(Message.StatusType.ing);
+//           PushChanger.getInstance().notifyChanged(msg);
+//           msg.setStatus(Message.StatusType.done);
+//          PushChanger.getInstance().notifyChanged(msg);
 
     }
 
@@ -67,6 +76,7 @@ public class IMPushManager {
     {
         PushChanger.getInstance().deleteObservers();
     }
+
 
 
 }

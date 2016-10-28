@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kevin.im.R;
 import com.kevin.im.entities.Message;
+import com.kevin.im.push.IMPushManager;
 import com.kevin.im.util.TimeHelper;
 
 import java.util.ArrayList;
@@ -78,10 +81,25 @@ public class ChatAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private View createTextOutMsg(int position, Message message) {
+    private View createTextOutMsg(int position, final Message message) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.activity_chat_text_out_item, null);
         ImageView mChatOutAvatarImg = (ImageView) convertView.findViewById(R.id.mChatOutAvatarImg);
         TextView mChatOutMsgLabel = (TextView) convertView.findViewById(R.id.mChatOutMsgLabel);
+        Button mChatOutMsgResendBtn= (Button) convertView.findViewById(R.id.mChatOutMsgResendBtn);
+        ProgressBar mChatOutMsgStatus= (ProgressBar) convertView.findViewById(R.id.mChatOutMsgStatus);
+        mChatOutMsgStatus.setVisibility(View.GONE);
+        if (message.getStatus()== Message.StatusType.ing)
+        {
+            mChatOutMsgStatus.setVisibility(View.VISIBLE);
+        }else if (message.getStatus()== Message.StatusType.fail)
+        {
+            mChatOutMsgResendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IMPushManager.getInstance(context).sendMessage(message);
+                }
+            });
+        }
         TextView mChatTimeLabel = (TextView) convertView.findViewById(R.id.mChatTimeLabel);
         mChatTimeLabel.setText(TimeHelper.getTimeRule3(message.getTimestamp()));
         mChatOutMsgLabel.setText(message.getContent());

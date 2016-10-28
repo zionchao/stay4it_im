@@ -14,6 +14,8 @@ public class UrlHelper {
     private static final String ACTION_GET_CONVERSATION = "/user/message/getConversationList";
     private static final String ACTION_GET_MESSAGE = "/user/message/getAllMessages";
 
+    private static final String ACTION_SEND_MSG = "/user/message/sendMsg";
+
 
     public static String getDomain()
     {
@@ -40,4 +42,7 @@ public class UrlHelper {
         return getDomain()+ACTION_BIND_BAIDU_PUSH;
     }
 
+    public static String loadSendMsg() {
+        return getDomain() + ACTION_SEND_MSG;
+    }
 }

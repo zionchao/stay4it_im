@@ -26,4 +26,18 @@ public class PushChanger extends Observable {
         setChanged();
         notifyObservers(message);
     }
+
+    public void notifyChanged(Message oldMessage, Message newMessage) {
+        MessageController.delete(oldMessage);
+        if (newMessage!=null)
+        {
+            MessageController.addOrUpdate(newMessage);
+        }
+        Message[] messages=new Message[2];
+        messages[0]=oldMessage;
+        messages[1]=newMessage;
+        setChanged();;
+        notifyObservers(messages);
+
+    }
 }
