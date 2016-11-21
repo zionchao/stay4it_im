@@ -5,5 +5,11 @@
     <string name="mChatSendBtnLable">Send</string>
     <string name="intro_create_account_qq">Sign Up</string>
     <string name="intro_existed_login">Log In</string>
+    <string name="mLoginTitleLabel">Log in Wechat</string>
+    <string name="mLoginAccountLabel">帐 号</string>
+    <string name="mLoginAccountHintLabel">QQ号/微信号/Email</string>
+    <string name="mLoginPasswordLabel">密 码</string>
+    <string name="mLoginPasswordHintLabel">密 码</string>
+    <string name="mLoginSubmitLabel">Login</string>
 
 </resources>

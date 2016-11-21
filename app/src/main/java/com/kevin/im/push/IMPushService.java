@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.kevin.http.AppException;
 import com.kevin.http.JsonCallback;
 import com.kevin.http.Request;
+import com.kevin.http.RequestManager;
 import com.kevin.im.IMApplication;
 import com.kevin.im.util.Constants;
 import com.kevin.im.entities.Message;
@@ -79,6 +80,7 @@ public class IMPushService extends Service {
                 IMPushManager.getInstance(getApplicationContext()).messageUpdate(oldMessage,null);
             }
         });
-        request.execute();
+//        request.execute();
+        RequestManager.getInstance().performRequest(request);
     }
 }

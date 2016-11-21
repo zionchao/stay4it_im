@@ -15,7 +15,9 @@ import com.kevin.im.R;
 import com.kevin.im.entities.Profile;
 import com.kevin.im.util.Constants;
 import com.kevin.im.util.PrefsAccessor;
+import com.kevin.im.util.TextUtil;
 import com.kevin.im.util.UrlHelper;
+import com.kevin.im.widget.EditorView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,8 +27,8 @@ import org.json.JSONObject;
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-    private EditText mLoginAccountEdt;
-    private EditText mLoginPwdEdt;
+    private EditorView mLoginAccountEdt;
+    private EditorView mLoginPwdEdt;
     private Button mLoginSubmitBtn;
 
     @Override
@@ -36,13 +38,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void initView() {
-        mLoginAccountEdt= (EditText)findViewById(R.id.mLoginAccountEdt);
-        mLoginPwdEdt= (EditText)findViewById(R.id.mLoginPwdEdt);
+        mLoginAccountEdt= (EditorView)findViewById(R.id.mLoginAccountEdt);
+        mLoginPwdEdt= (EditorView)findViewById(R.id.mLoginPwdEdt);
         mLoginSubmitBtn= (Button)findViewById(R.id.mLoginSubmitBtn);
     }
 
     @Override
     public void initData() {
+        mLoginAccountEdt.setText(PrefsAccessor.getInstance(this).getString(Constants.KEY_ACCOUNT));
+        mLoginPwdEdt.setText(PrefsAccessor.getInstance(this).getString(Constants.KEY_PASSWORD));
+
         mLoginSubmitBtn.setOnClickListener(this);
     }
 
@@ -53,7 +58,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.mLoginSubmitBtn:
                 String account=mLoginAccountEdt.getText().toString();
                 String pwd=mLoginPwdEdt.getText().toString();
-                doLogin(account,pwd);
+                if (TextUtil.isValidate(account,pwd))
+                {
+                    doLogin(account,pwd);
+                }
                 break;
         }
     }
