@@ -30,33 +30,32 @@ public class DBTest {
     public static final String TARGETID="Will";
 
     PushWatcher watcher=new PushWatcher(){
-        @Override
-        public void messageUpdata(Message message) {
-            if (message.getSenderId().equals(SELFID))
-            {
-                Trace.d("i send a message to "+message.getReceiverId());
-            }else
-            {
-                if (message.getSenderId().equals(TARGETID)){
-                    Trace.d("new message send by "+message.getSenderId());
-                }else
-                {
-                    Trace.d("new message send by other");
-                }
-            }
-        }
+//        public void messageUpdata(Message message) {
+//            if (message.getSenderId().equals(SELFID))
+//            {
+//                Trace.d("i send a message to "+message.getReceiverId());
+//            }else
+//            {
+//                if (message.getSenderId().equals(TARGETID)){
+//                    Trace.d("new message send by "+message.getSenderId());
+//                }else
+//                {
+//                    Trace.d("new message send by other");
+//                }
+//            }
+//        }
     };
 
     PushWatcher controller=new PushWatcher(){
-        @Override
-        public void messageUpdata(Message message) {
-            if (message.getSenderId().equals(TARGETID)){
-                Trace.d("new message send by "+message.getSenderId());
-            }else
-            {
-                Trace.d("new message send by other");
-            }
-        }
+//        @Override
+//        public void messageUpdata(Message message) {
+//            if (message.getSenderId().equals(TARGETID)){
+//                Trace.d("new message send by "+message.getSenderId());
+//            }else
+//            {
+//                Trace.d("new message send by other");
+//            }
+//        }
     };
 
     @Before

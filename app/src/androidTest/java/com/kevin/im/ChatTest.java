@@ -2,10 +2,9 @@ package com.kevin.im;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.kevin.im.entities.Message;
 import com.kevin.im.push.IMPushManager;
 import com.kevin.im.push.PushWatcher;
-import com.kevin.im.entities.Message;
-import com.kevin.im.util.Trace;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,11 +23,11 @@ public class ChatTest{
     public static final String TARGETID="Will";
 
     PushWatcher watcher1=new PushWatcher(){
-        @Override
-        public void messageUpdata(Message message) {
-            Trace.d(message.getStatus()+"");
-//            Log.e("lalala",message.getStatus()+"");
-        }
+//        @Override
+//        public void messageUpdata(Message message) {
+//            Trace.d(message.getStatus()+"");
+////            Log.e("lalala",message.getStatus()+"");
+//        }
     };
     PushWatcher watcher2=new PushWatcher();
 

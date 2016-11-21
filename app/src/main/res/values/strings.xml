@@ -3,4 +3,7 @@
     <string name="mLoginSubmitLable">Login</string>
     <string name="mChatLoadMoreLabel">Load More</string>
     <string name="mChatSendBtnLable">Send</string>
+    <string name="intro_create_account_qq">Sign Up</string>
+    <string name="intro_existed_login">Log In</string>
+
 </resources>

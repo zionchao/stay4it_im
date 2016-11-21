@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                Trace.d(profile.toString());
                 IMApplication.setProfile(profile);
                 PrefsAccessor.getInstance(LoginActivity.this).saveString(Constants.KEY_ACCOUNT,account);
-                PrefsAccessor.getInstance(LoginActivity.this).saveString(Constants.KEY_PASSWORK,pwd);
+                PrefsAccessor.getInstance(LoginActivity.this).saveString(Constants.KEY_PASSWORD,pwd);
                 Intent intent=new Intent(LoginActivity.this,ConversationActivity.class);
                 startActivity(intent);
             }
