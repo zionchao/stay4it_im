@@ -74,7 +74,7 @@ public class EditorView extends RelativeLayout implements View.OnClickListener {
     }
 
     private void parseAttr(Context context, AttributeSet attrs) {
-        TypedArray a=context.obtainStyledAttributes(R.styleable.editor);
+        TypedArray a=context.obtainStyledAttributes(attrs,R.styleable.editor);
         if (a.hasValue(R.styleable.editor_hint))
         {
             mWidgetEditorEdt.setHint(a.getString(R.styleable.editor_hint));

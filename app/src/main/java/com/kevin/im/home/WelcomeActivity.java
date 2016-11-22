@@ -40,6 +40,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     break;
             }
             startActivity(intent);
+
+
         }
     };
 

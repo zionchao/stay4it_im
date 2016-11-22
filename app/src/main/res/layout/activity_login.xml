@@ -9,6 +9,7 @@
         android:id="@+id/mLoginAccountEdt"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:text="jz01"
@@ -43,6 +44,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/mLoginPwdEdt"
-        android:layout_alignStart="@+id/mLoginPwdEdt" />
+        android:layout_alignStart="@+id/mLoginPwdEdt"
+        android:layout_marginTop="30dp"
+        />
 
 </RelativeLayout>
