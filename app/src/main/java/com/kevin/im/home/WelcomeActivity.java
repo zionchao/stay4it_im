@@ -1,12 +1,14 @@
 package com.kevin.im.home;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
 import com.kevin.im.BaseActivity;
+import com.kevin.im.IMApplication;
 import com.kevin.im.R;
 import com.kevin.im.util.Constants;
 import com.kevin.im.util.PrefsAccessor;
@@ -36,15 +38,21 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     intent.setClass(WelcomeActivity.this,LoginActivity.class);
                     break;
                 case ACTION_HOME:
+                    IMApplication.mAppState=1;
                     intent.setClass(WelcomeActivity.this,HomeActivity.class);
                     break;
             }
             startActivity(intent);
-
-
+            finish();
         }
     };
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        IMApplication.mAppState=0;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void setContentView() {
@@ -82,6 +90,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         switch(v.getId()){
             case R.id.select_login_btn:
                 startActivity(new Intent(this,LoginActivity.class));
+                finish();
                 break;
             case R.id.select_register_btn:
                 break;

@@ -13,11 +13,13 @@ public class IMApplication extends Application {
     public static Context gContext;
     public static String selfId="Kevin";
     private static Profile profile;
+    public static int mAppState=-1;
 
     @Override
     public void onCreate() {
         super.onCreate();
         gContext=this;
+        mAppState=-1;
 //        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,"gAGnnASU9wBTkdygWI0pfenR");
 
     }

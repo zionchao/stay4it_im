@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/mTabIconImg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:duplicateParentState="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mTabIconInfo"
+        android:layout_below="@id/mTabIconImg"
+        android:layout_centerHorizontal="true"
+        android:duplicateParentState="true"
+        android:textColor="@color/selector_tab"
+        />
+
+</RelativeLayout>

@@ -116,6 +116,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initData() {
+        IMApplication.getProfile().getAccess_token();
         targetId=getIntent().getStringExtra(Constants.KEY_TARGETID);
         targetName=getIntent().getStringExtra(Constants.KEY_TARGETNAME);
         selfName=IMApplication.getProfile().getName();

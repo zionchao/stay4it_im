@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+<com.kevin.im.widget.TabIndictor
+    android:id="@+id/mHomeIndicator"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/tab_indicator_gray"
+    android:clickable="true"
+    android:layout_alignParentBottom="true"
+    />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mHomeFrame"
+        android:layout_above="@id/mHomeIndicator"
+        ></FrameLayout>
+
+
+</RelativeLayout>

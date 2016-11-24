@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:background="@drawable/seletor_bg_white"
+                android:minHeight="55dp">
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="56dp"
+        android:id="@+id/mConversationAvatarLayout"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+    >
+         <ImageView
+             android:id="@+id/mConversationAvatarImg"
+             android:layout_width="45dp"
+             android:layout_height="45dp"
+             android:background="@drawable/mini_avatar"
+         />
+
+        <TextView
+            android:id="@+id/mConversationNumTip"
+            android:layout_width="10dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_badge"
+            android:gravity="center"
+            android:textColor="@color/white"
+        />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/mFragmentProfileActionArrowImg"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/ic_forward"
+    />
+    <TextView
+        android:id="@+id/mConversationTimestampLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@id/mFragmentProfileActionArrowImg"
+        android:textColor="@color/gray"
+        android:textSize="11sp"
+    />
+    <TextView
+        android:id="@+id/mConversationStatusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/mConversationTimestampLabel" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/mConversationStatusLabel"
+        android:layout_toRightOf="@id/mConversationAvatarLayout" >
+
+        <TextView
+            android:id="@+id/mConversationUsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="hahaha"
+        />
+
+        <TextView
+            android:id="@+id/mConversationContentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mConversationUsernameLabel"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

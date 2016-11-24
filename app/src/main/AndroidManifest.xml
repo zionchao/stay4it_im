@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.HomeActivity"/>
+        <activity android:name=".home.HomeActivity" android:launchMode="singleTask"/>
 
         <activity android:name=".home.LoginActivity"/>
 

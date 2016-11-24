@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
 
+    <color name="gray">#ff454545</color>
+    <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
     <color name="white_light">#fff1f1f1</color>
-    <color name="black">#ff000000</color>
     <color name="water_fall_text_bg">#fbf3e8</color>
     <color name="water_fall_text">#94918d</color>
     <color name="app_background">#fff2f1ed</color>
+
+    <color name="widgets_general_row_pressed">#d9d9d9</color>
+    <color name="widgets_general_row_normal">#ffffff</color>
+    <color name="widgets_general_row_line">#e5e5e5</color>
+    <color name="general_background">#efeff4</color>
+
     <color name="sns_bg_color">#fff8f8f8</color>
     <color name="textcolor_66">#ff666666</color>
     <color name="textcolor_80">#ff808080</color>
@@ -17,7 +21,9 @@
     <color name="divider_bg">#ffe5e5e5</color>
     <color name="main_blue_selected">#ff37b8c1</color>
     <color name="main_blue">#ff34ced9</color>
-    <color name="gray">#ff454545</color>
+    <color name="tab_indicator_gray">#fffcfcfc</color>
+    <color name="tab_gray">#ff999999</color>
+    <color name="tab_green">#ff45c01a</color>
     <color name="light_gray">#20454545</color>
     <color name="main_purple">#ffaf92d7</color>
     <color name="main_purple_selected">#ff9b7dc3</color>

@@ -8,7 +8,7 @@ import com.kevin.http.AppException;
 import com.kevin.http.JsonCallback;
 import com.kevin.http.Request;
 import com.kevin.http.RequestManager;
-import com.kevin.im.BaseActivity;
+import com.kevin.im.BaseActionBarActivity;
 import com.kevin.im.IMApplication;
 import com.kevin.im.R;
 import com.kevin.im.entities.Profile;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * Created by zhangchao_a on 2016/10/13.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActionBarActivity implements View.OnClickListener {
     private EditorView mLoginAccountEdt;
     private EditorView mLoginPwdEdt;
     private Button mLoginSubmitBtn;
@@ -48,6 +48,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mLoginPwdEdt.setText(PrefsAccessor.getInstance(this).getString(Constants.KEY_PASSWORD));
 
         mLoginSubmitBtn.setOnClickListener(this);
+    }
+
+    protected void goHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -83,10 +89,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSuccess(Profile profile) {
 //                Trace.d(profile.toString());
+                IMApplication.mAppState=1;
                 IMApplication.setProfile(profile);
                 PrefsAccessor.getInstance(LoginActivity.this).saveString(Constants.KEY_ACCOUNT,account);
                 PrefsAccessor.getInstance(LoginActivity.this).saveString(Constants.KEY_PASSWORD,pwd);
-                Intent intent=new Intent(LoginActivity.this,ConversationActivity.class);
+                Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
 

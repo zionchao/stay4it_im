@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.google.gson.Gson;
 import com.kevin.im.entities.Message;
 import com.kevin.im.util.Constants;
+import com.tencent.android.tpush.XGPushManager;
 
 /**
  * Created by zhangchao_a on 2016/10/12.
@@ -78,5 +79,13 @@ public class IMPushManager {
     }
 
 
+    public void startPush() {
+        XGPushManager.registerPush(context);
+    }
+
+    public void stopPush()
+    {
+        XGPushManager.unregisterPush(context);
+    }
 
 }

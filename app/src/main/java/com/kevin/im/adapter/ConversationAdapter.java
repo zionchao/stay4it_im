@@ -47,7 +47,7 @@ public class ConversationAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null || convertView.getTag() == null) {
             mViewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_conversation_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_conversation_item, null);
             mViewHolder.mConversationAvatarImg = (ImageView) convertView.findViewById(R.id.mConversationAvatarImg);
             mViewHolder.mConversationNumTip = (TextView) convertView.findViewById(R.id.mConversationNumTip);
             mViewHolder.mConversationTimestampLabel = (TextView) convertView.findViewById(R.id.mConversationTimestampLabel);
