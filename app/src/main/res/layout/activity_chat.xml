@@ -4,34 +4,26 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <Button android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/mChatLoadMoreBtn"
             android:text="@string/mChatLoadMoreLabel"
     />
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/mChatEditLayout"
-                  android:layout_alignParentBottom="true"
-                  android:orientation="horizontal"
-    >
-        <EditText android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/mChatEdt"
-                  android:layout_weight="1"
-        />
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/mChatSendBtn"
-                android:text="@string/mChatSendBtnLabel"
-        />
-    </LinearLayout>
+    <com.kevin.im.widget.chat.plugin.ChatPluginView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mChatPluginView"
+        android:layout_alignParentBottom="true"
+        >
+    </com.kevin.im.widget.chat.plugin.ChatPluginView>
 
     <ListView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/mChatLsv"
-              android:layout_above="@id/mChatEditLayout"
+              android:transcriptMode="normal"
               android:layout_below="@id/mChatLoadMoreBtn"
+        android:layout_above="@id/mChatPluginView"
+
     >
     </ListView>
 

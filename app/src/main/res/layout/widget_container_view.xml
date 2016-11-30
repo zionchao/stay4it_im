@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:orientation="vertical"
+        android:background="@color/widgets_emo_pannel_bg"
+        android:padding="10dp"
+        >
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/mEmoViewPager"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            />
+        <com.kevin.im.widget.chat.emo.EmoDotView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:id="@+id/mEmoDotView"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/widgets_general_row_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp">
+        <com.kevin.im.widget.chat.emo.EmoGroupView
+            android:id="@+id/mEmoGroupView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            >
+        </com.kevin.im.widget.chat.emo.EmoGroupView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mEmoSendBtn"
+            android:text="Send"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

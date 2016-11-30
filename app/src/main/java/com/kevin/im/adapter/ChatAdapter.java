@@ -1,6 +1,9 @@
 package com.kevin.im.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,9 @@ import android.widget.TextView;
 import com.kevin.im.R;
 import com.kevin.im.entities.Message;
 import com.kevin.im.push.IMPushManager;
+import com.kevin.im.util.FileUtil;
 import com.kevin.im.util.TimeHelper;
+import com.kevin.im.widget.chat.emo.EmoParse;
 
 import java.util.ArrayList;
 
@@ -36,7 +41,9 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mChatList==null?0:mChatList.size();
+        if (mChatList==null)
+            return 0;
+        return mChatList.size();
     }
 
     @Override
@@ -55,14 +62,14 @@ public class ChatAdapter extends BaseAdapter {
 
         if (selfId.equalsIgnoreCase(message.getSenderId())) {
             // out
-            if (message.getType()==null||message.getType() == Message.MessageType.txt) {
+            if (message.getType()==null||message.getType() == Message.MessageType.txt||message.getType()== Message.MessageType.emo) {
                 convertView = createTextOutMsg(position, message);
             } else {
 //					convertView = createMediaOutMsg(position, message);
             }
         } else {
             // in
-            if (message.getType() == Message.MessageType.txt) {
+            if (message.getType() == Message.MessageType.txt||message.getType()== Message.MessageType.emo) {
                 convertView = createTextInMsg(position, message);
             } else {
 //					convertView = createMediaInMsg(position, message);
@@ -77,7 +84,15 @@ public class ChatAdapter extends BaseAdapter {
         TextView mChatInMsgLabel = (TextView) convertView.findViewById(R.id.mChatInMsgLabel);
         TextView mChatTimeLabel = (TextView) convertView.findViewById(R.id.mChatTimeLabel);
         mChatTimeLabel.setText(TimeHelper.getTimeRule3(message.getTimestamp()));
-        mChatInMsgLabel.setText(message.getContent());
+//        mChatInMsgLabel.setText(message.getContent());
+        if (message.getType()== Message.MessageType.txt){
+            mChatInMsgLabel.setText(EmoParse.parseEmo(context,message.getContent()));
+        }else if (message.getType()== Message.MessageType.emo){
+            String [] emos=message.getContent().split(":");
+            String path= FileUtil.getEmoPath(emos[0],emos[1]);
+            Bitmap bitmap= BitmapFactory.decodeFile(path);
+            mChatInMsgLabel.setBackground(new BitmapDrawable(bitmap));
+        }
         return convertView;
     }
 
@@ -102,7 +117,16 @@ public class ChatAdapter extends BaseAdapter {
         }
         TextView mChatTimeLabel = (TextView) convertView.findViewById(R.id.mChatTimeLabel);
         mChatTimeLabel.setText(TimeHelper.getTimeRule3(message.getTimestamp()));
-        mChatOutMsgLabel.setText(message.getContent());
+//        mChatOutMsgLabel.setText(message.getContent());
+        if (message.getType()== Message.MessageType.txt){
+            mChatOutMsgLabel.setText(EmoParse.parseEmo(context,message.getContent()));
+        }else if (message.getType()== Message.MessageType.emo){
+            String[] emos=message.getContent().split(":");
+            String path=FileUtil.getEmoPath(emos[0],emos[1]);
+            Bitmap bitmap=BitmapFactory.decodeFile(path);
+            mChatOutMsgLabel.setText(null);
+            mChatOutMsgLabel.setBackground(new BitmapDrawable(bitmap));
+        }
         return convertView;
     }
 

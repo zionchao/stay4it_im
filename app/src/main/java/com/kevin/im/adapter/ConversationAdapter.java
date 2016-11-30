@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.kevin.im.R;
 import com.kevin.im.entities.Conversation;
+import com.kevin.im.widget.chat.emo.EmoParse;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class ConversationAdapter extends BaseAdapter {
         }
         Conversation conversation = mConversationList.get(position);
         mViewHolder.mConversationUsernameLabel.setText(conversation.getTargetName());
-        mViewHolder.mConversationContentLabel.setText(conversation.getContent());
+        mViewHolder.mConversationContentLabel.setText(EmoParse.parseEmo(context,conversation.getContent()));
         return convertView;
     }
 

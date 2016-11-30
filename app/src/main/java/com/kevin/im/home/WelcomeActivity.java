@@ -75,7 +75,13 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         String account= PrefsAccessor.getInstance(this).getString(Constants.KEY_ACCOUNT);
         String pwd=PrefsAccessor.getInstance(this).getString(Constants.KEY_PASSWORD);
         if (TextUtil.isValidate(account,pwd)){
-            mHandler.sendEmptyMessageDelayed(ACTION_HOME,2000);
+            IMApplication.initProfile();
+            if (IMApplication.getProfile() == null) {
+                mHandler.sendEmptyMessageDelayed(ACTION_LOGIN, 2000);
+            }else {
+                IMApplication.mAppState = 1;
+                mHandler.sendEmptyMessageDelayed(ACTION_HOME, 2000);
+            }
         }else if(TextUtil.isValidate(account)){
             mHandler.sendEmptyMessageDelayed(ACTION_LOGIN,2000);
         }else

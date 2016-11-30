@@ -1,8 +1,9 @@
 package com.kevin.im.home;
 
+import android.app.Activity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.kevin.http.AppException;
@@ -20,6 +21,7 @@ import com.kevin.im.push.PushWatcher;
 import com.kevin.im.util.Constants;
 import com.kevin.im.util.IDHelper;
 import com.kevin.im.util.UrlHelper;
+import com.kevin.im.widget.chat.plugin.ChatPluginView;
 import com.tencent.android.tpush.XGPushManager;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import static com.kevin.im.util.Constants.REFRESH;
  * Created by zhangchao_a on 2016/10/14.
  */
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener {
+public class ChatActivity extends BaseActivity implements View.OnClickListener, ChatPluginView.OnPluginListener {
     private ChatAdapter mChatAdapter;
     private ListView mChatLsv;
     private ArrayList<Message> mChatList;
@@ -91,9 +93,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     };
 
     private long endTimeStamp=0;
-    private EditText mChatEdt;
-    private Button mChatSendBtn;
+//    private EditText mChatEdt;
+//    private Button mChatSendBtn;
     private String selfName;
+    private ChatPluginView mChatPluginView;
+    private InputMethodManager mKeyboardManager
+            ;
 
     @Override
     public void setContentView() {
@@ -104,9 +109,14 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initView() {
         mChatLsv=(ListView)findViewById(R.id.mChatLsv);
-        mChatEdt= (EditText) findViewById(R.id.mChatEdt);
-        mChatSendBtn= (Button) findViewById(R.id.mChatSendBtn);
-        mChatSendBtn.setOnClickListener(this);
+//        mChatEdt= (EditText) findViewById(R.id.mChatEdt);
+//        mChatSendBtn= (Button) findViewById(R.id.mChatSendBtn);
+//        mChatSendBtn.setOnClickListener(this);
+
+        mChatPluginView=(ChatPluginView)findViewById(R.id.mChatPluginView);
+        mKeyboardManager= (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        mChatPluginView.initData(mKeyboardManager);
+        mChatPluginView.setOnPluginListener(this);
 
         mChatAdapter=new ChatAdapter(this,mChatList);
         mChatLsv.setAdapter( mChatAdapter);
@@ -253,15 +263,15 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
                 loadDataFromServer(LOADMORE,timestamp);
                 break;
             case R.id.mChatSendBtn:
-                if (mChatEdt.getText().toString()!=null)
-                {
-                    composeMessage(mChatEdt.getText().toString());
-                }
+//                if (mChatEdt.getText().toString()!=null)
+//                {
+//                    composeMessage(Message.MessageType.emo, mChatEdt.getText().toString());
+//                }
                 break;
         }
     }
 
-    private void composeMessage(String content) {
+    private void composeMessage(Message.MessageType type, String content) {
         Message message=new Message();
         message.set_id(IDHelper.generateNew());
         message.setContent(content);
@@ -269,8 +279,19 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
         message.setReceiverId(targetId);
         message.setSender_name(selfName);
         message.setSenderId(selfId);
-        message.setContent_type(Message.MessageType.txt);
+        message.setContent_type(type);
         message.setTimestamp(System.currentTimeMillis());
         IMPushManager.getInstance(this).sendMessage(message);
+    }
+
+    @Override
+    public void onSendMsg(CharSequence content) {
+        composeMessage(Message.MessageType.txt ,content.toString());
+    }
+
+    @Override
+    public void onSendEmo(String content) {
+        composeMessage(Message.MessageType.emo ,content.toString());
+
     }
 }

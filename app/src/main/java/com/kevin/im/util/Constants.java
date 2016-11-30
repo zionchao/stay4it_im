@@ -19,5 +19,5 @@ public class Constants {
     public static final long PAGECOUNT = 30;
 
 
-
+    public static final String KEY_PROFILE ="key_profile" ;
 }

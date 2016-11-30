@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mChatEditLayout"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/mChatEdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            />
+        <ImageButton
+            android:id="@+id/mChatEmoBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/sns_shoot_emotion_icon_normal" />
+
+        <Button
+            android:id="@+id/mChatSendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mChatSendBtnLabel" />
+    </LinearLayout>
+
+    <com.kevin.im.widget.chat.emo.EmoView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mChatEmoView"
+        android:layout_below="@id/mChatEditLayout"
+        android:visibility="gone"
+        >
+    </com.kevin.im.widget.chat.emo.EmoView>
+
+</RelativeLayout>
