@@ -7,6 +7,7 @@ import com.kevin.im.IMApplication;
 import com.kevin.im.db.ConversationController;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by zhangchao_a on 2016/10/12.
@@ -45,6 +46,8 @@ public class Message implements Serializable {
     private String receiver_picture;
     @DatabaseField
     private String content;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private ArrayList<Attachment> attachments;
     @DatabaseField(unique = true)
     private long timestamp;
     @DatabaseField
@@ -120,6 +123,14 @@ public class Message implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public ArrayList<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(ArrayList<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public long getTimestamp() {

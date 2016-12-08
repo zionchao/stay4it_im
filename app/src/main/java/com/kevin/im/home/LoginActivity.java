@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.kevin.http.AppException;
-import com.kevin.http.JsonCallback;
-import com.kevin.http.Request;
-import com.kevin.http.RequestManager;
 import com.kevin.im.BaseActionBarActivity;
 import com.kevin.im.IMApplication;
 import com.kevin.im.R;
 import com.kevin.im.entities.Profile;
+import com.kevin.im.net.AppException;
+import com.kevin.im.net.JsonCallback;
+import com.kevin.im.net.Request;
+import com.kevin.im.net.RequestManager;
 import com.kevin.im.util.Constants;
 import com.kevin.im.util.PrefsAccessor;
 import com.kevin.im.util.TextUtil;

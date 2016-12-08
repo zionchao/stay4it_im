@@ -15,6 +15,8 @@ public class UrlHelper {
     private static final String ACTION_GET_MESSAGE = "/user/message/getAllMessages";
 
     private static final String ACTION_SEND_MSG = "/user/message/sendMsg";
+    private static final String ACTION_SEND_MEDIA_MSG = "/user/message/sendMediaMsg";
+
 
 
     public static String getDomain()
@@ -44,5 +46,9 @@ public class UrlHelper {
 
     public static String loadSendMsg() {
         return getDomain() + ACTION_SEND_MSG;
+    }
+
+    public static String loadSendMediaMsg() {
+        return getDomain() + ACTION_SEND_MEDIA_MSG;
     }
 }
